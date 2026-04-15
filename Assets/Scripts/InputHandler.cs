@@ -17,9 +17,10 @@ public class InputHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        TowerA_Action.action.performed += ctx => OnTowerSelected?.Invoke(0);
-        TowerA_Action.action.performed += ctx => OnTowerSelected?.Invoke(1);
-        TowerA_Action.action.performed += ctx => OnTowerSelected?.Invoke(2);
+        TowerA_Action.action.performed += OnTowerA;
+        TowerB_Action.action.performed += OnTowerB;
+        TowerC_Action.action.performed += OnTowerC;
+
 
         TowerA_Action.action.Enable();
         TowerB_Action.action.Enable();
@@ -28,9 +29,9 @@ public class InputHandler : MonoBehaviour
 
     private void OnDisable()
     {
-        TowerA_Action.action.performed -= ctx => OnTowerSelected?.Invoke(0);
-        TowerA_Action.action.performed -= ctx => OnTowerSelected?.Invoke(1);
-        TowerA_Action.action.performed -= ctx => OnTowerSelected?.Invoke(2);
+        TowerA_Action.action.performed -= OnTowerA;
+        TowerB_Action.action.performed -= OnTowerB;
+        TowerC_Action.action.performed -= OnTowerC;
 
         TowerA_Action.action.Disable();
         TowerB_Action.action.Disable();
@@ -43,5 +44,20 @@ public class InputHandler : MonoBehaviour
 
         Vector3 mouseWorldPos = sceneCamera.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, sceneCamera.nearClipPlane));
         return mouseWorldPos;
+    }
+
+    private void OnTowerA(InputAction.CallbackContext ctx)
+    {
+        OnTowerSelected?.Invoke(0);
+    }
+
+    private void OnTowerB(InputAction.CallbackContext ctx)
+    {
+        OnTowerSelected?.Invoke(1);
+    }
+
+    private void OnTowerC(InputAction.CallbackContext ctx)
+    {
+        OnTowerSelected?.Invoke(2);
     }
 }
